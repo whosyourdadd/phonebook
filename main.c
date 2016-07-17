@@ -41,7 +41,14 @@ int main(int argc, char *argv[])
     pHead = (entry *) malloc(sizeof(entry));
     printf("size of entry : %lu bytes\n", sizeof(entry));
     e = pHead;
+#ifdef  _PHONEBOOK_H
+    //printf("define _PHONEBOOK_H\n");
     e->pNext = NULL;
+#else
+    //printf("define _PHONEBOOK_OPT_H\n");
+    e->p_Left =NULL;
+    e->p_Right =NULL;
+#endif
 
 #if defined(__GNUC__)
     __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry));
@@ -52,6 +59,7 @@ int main(int argc, char *argv[])
             i++;
         line[i - 1] = '\0';
         i = 0;
+        //e = append(line, pHead);
         e = append(line, e);
     }
     clock_gettime(CLOCK_REALTIME, &end);
